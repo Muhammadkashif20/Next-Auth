@@ -1,12 +1,9 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
-const login = async () => {
+const SignIn = async () => {
   const login = await fetch("https://google.com");
-  console.log("login=>", login);
-  if (login.status == "ok") {
-    return { role: "user" };
-  }
+    return { role: "user" , _id:"pokjdbbsmmjehhbamh222b=llm>n210" };
 };
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
@@ -17,11 +14,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return { ...profile, role: "user" }; // Do different verification for other providers that don't have `email_verified`
     },
     //  By default, the `id` property does not exist on `token` or `session`. See the [TypeScript](https://authjs.dev/getting-started/typescript) on how to add it.
-    jwt({ token, user }) {
-      // console.log("user in JWT=>", user);
-
-      token.role = "user";
-      token._id = "jgdbmwyahcmftshm25smf6mdj777";
+    async jwt({ token, user }) {
+      console.log("user in JWT=>", token);
+      const loginToserver=await SignIn()
+      console.log("loginToserver=>",loginToserver);
+      
+      token.role = loginToserver.role,
+      token._id = loginToserver._id
       return token;
     },
     session({ session, token }) {

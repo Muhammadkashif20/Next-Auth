@@ -1,11 +1,17 @@
 import { auth, signIn, signOut } from "@/app/auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const Login = async () => {
   const session = await auth();
   console.log("session=>", session);
-
+  if(session){
+    redirect("/")
+  }
+  else{
+    console.log("SignIn Please");
+  }
   return (
     <div className="container my-36">
       <div className="flex justify-center items-center">
