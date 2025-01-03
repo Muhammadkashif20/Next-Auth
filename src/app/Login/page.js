@@ -7,7 +7,9 @@ const Login = async () => {
   console.log("session=>", session);
 
   return (
-    <div className="container my-36 flex justify-center items-center">
+    <div className="container my-36">
+      <div className="flex justify-center items-center">
+
       {session ? (
         <div className="bg-white outline outline-gray-200 w-1/3 h-1/2 flex flex-col items-center justify-center py-4">
           <Image className="rounded-full p-4 " width={150} height={100} src={session?.user?.image}/>
@@ -18,21 +20,22 @@ const Login = async () => {
             "use server";
             await signOut("google");
           }}
-        >
+          >
           <button type="submit">SignOut</button>
         </form>
         </div>
         
       ) : (
         <form
-          action={async () => {
-            "use server";
-            await signIn("google");
-          }}
+        action={async () => {
+          "use server";
+          await signIn("google");
+        }}
         >
           <button type="submit">Signin with Google</button>
         </form>
       )}
+      </div>
     </div>
   );
 };
